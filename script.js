@@ -133,3 +133,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Slide in every section below the hero as it's scrolled into view
+document.addEventListener('DOMContentLoaded', () => {
+    const revealEls = document.querySelectorAll('[data-reveal]');
+    if (revealEls.length) {
+        const revealIO = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('kw-in');
+                    revealIO.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        revealEls.forEach(el => revealIO.observe(el));
+    }
+});
